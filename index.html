@@ -44,11 +44,11 @@
   <body class="bg-white text-zinc-900">
     <div id="root"></div>
 
-    <!-- Mount the exported component from /src/app.jsx -->
+    <!-- Mount the exported component from /src/app.tsx -->
     <script type="module">
       import React from "react";
       import { createRoot } from "react-dom/client";
-      import AvavogueShowcase from "/src/app.jsx";
+      import AvavogueShowcase from "/src/app.tsx";
 
       const root = createRoot(document.getElementById("root"));
       root.render(React.createElement(AvavogueShowcase));
