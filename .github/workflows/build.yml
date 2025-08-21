@@ -1,4 +1,4 @@
-name: Build and Deploy (Vite → GitHub Pages)
+name: Build & Publish to gh-pages (Vite)
 
 on:
   push:
@@ -6,20 +6,17 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
+  contents: write  # needed to push to gh-pages
 
 jobs:
-  build:
+  build-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: 📥 Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: 🔧 Setup Node
         uses: actions/setup-node@v4
@@ -30,26 +27,17 @@ jobs:
       - name: 📦 Install deps
         run: npm ci
 
-      - name: 🏗️ Build (with base path)
+      - name: 🏗️ Build for project page base
         env:
-          # 讓 Vite 以 /<repo_name>/ 為 base，支援 project pages
           BASE_PATH: "/"
         run: |
           echo "Using BASE_PATH=$BASE_PATH"
           npm run build -- --base="$BASE_PATH"
 
-      - name: 📤 Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: 🚀 Publish ./dist to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: 🚀 Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          # create or reuse branch without nuking history
+          force_orphan: false
