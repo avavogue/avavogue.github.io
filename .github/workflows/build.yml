@@ -1,4 +1,4 @@
-name: Build and Deploy (Vite → GitHub Pages, macOS, no-lockfile)
+name: Build and Deploy (Vite → GitHub Pages, root site)
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
       - name: 📥 Checkout
         uses: actions/checkout@v4
 
-      - name: 🔧 Setup Node (no cache)
+      - name: 🔧 Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
@@ -29,12 +29,9 @@ jobs:
       - name: 📦 Install deps (no lockfile)
         run: npm install --no-audit --no-fund
 
-      - name: 🏗️ Build (with base path)
-        env:
-          BASE_PATH: "/${{ github.event.repository.name }}/"
-        run: |
-          echo "Using BASE_PATH=$BASE_PATH"
-          npm run build -- --base="$BASE_PATH"
+      - name: 🏗️ Build (root base path)
+        # For username.github.io the site root is "/"
+        run: npm run build -- --base="/"
 
       - name: 📤 Upload artifact
         uses: actions/upload-pages-artifact@v3
