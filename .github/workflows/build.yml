@@ -6,17 +6,15 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write  # needed to push to gh-pages
+  contents: write  # needed to push to gh-pages branch
 
 jobs:
   build-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04   # 👈 pin to a stable Ubuntu version
 
     steps:
       - name: 📥 Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: 🔧 Setup Node
         uses: actions/setup-node@v4
@@ -27,17 +25,15 @@ jobs:
       - name: 📦 Install deps
         run: npm ci
 
-      - name: 🏗️ Build for project page base
+      - name: 🏗️ Build (set base to /<repo>/)
         env:
           BASE_PATH: "/"
         run: |
           echo "Using BASE_PATH=$BASE_PATH"
           npm run build -- --base="$BASE_PATH"
 
-      - name: 🚀 Publish ./dist to gh-pages
+      - name: 🚀 Publish to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          # create or reuse branch without nuking history
-          force_orphan: false
