@@ -33,7 +33,7 @@ jobs:
       - name: 🏗️ Build (with base path)
         env:
           # 讓 Vite 以 /<repo_name>/ 為 base，支援 project pages
-          BASE_PATH: "/${{ github.event.repository.name }}/"
+          BASE_PATH: "/"
         run: |
           echo "Using BASE_PATH=$BASE_PATH"
           npm run build -- --base="$BASE_PATH"
