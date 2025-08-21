@@ -1,43 +1,37 @@
 <!doctype html>
 <html lang="zh-Hant">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AVAVOGUE — 時尚婚禮設計</title>
-  <meta name="description" content="AVAVOGUE 時尚婚禮設計｜品牌級視覺與現場統籌，為愛設計美學儀式。" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>AVAVOGUE — 時尚婚禮設計</title>
 
-  <!-- Tailwind（CDN 版） -->
-  <script src="https://cdn.tailwindcss.com"></script>
+    <!-- （可選）Tailwind CDN：若你未設置 Tailwind 專案，先用 CDN 版即可 -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Import Map：把裸匯入映射到 ESM CDN -->
-  <script type="importmap">
-  {
-    "imports": {
-      "react": "https://esm.sh/react@18",
-      "react-dom/client": "https://esm.sh/react-dom@18/client",
-      "framer-motion": "https://esm.sh/framer-motion@11",
-      "lucide-react": "https://esm.sh/lucide-react@0.469.0"
-    }
-  }
-  </script>
+    <!-- 字體（可改成你的品牌字體） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html, body { height: 100%; }
+      body { font-family: Poppins, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+      #root { min-height: 100%; }
+    </style>
+  </head>
+  <body class="bg-white text-zinc-900">
+    <div id="root"></div>
 
-  <style>
-    /* 可視需要加上全域字型或細部樣式 */
-    html, body { height: 100%; }
-    body { background: #fff; color: #0a0a0a; }
-  </style>
-</head>
-<body class="min-h-screen bg-white text-zinc-900 selection:bg-zinc-900 selection:text-white">
-  <div id="root"></div>
-
-  <!-- 掛載 React App -->
-  <script type="module">
-    import React from "react";
-    import { createRoot } from "react-dom/client";
-    import AvavogueShowcase from "./src/app.jsx";
-
-    const root = createRoot(document.getElementById("root"));
-    root.render(React.createElement(AvavogueShowcase));
-  </script>
-</body>
+    <!-- 入口檔：你已經有的 src/app.jsx -->
+    <script type="module" src="/src/app.jsx"></script>
+  </body>
 </html>
