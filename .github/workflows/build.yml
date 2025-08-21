@@ -1,4 +1,4 @@
-name: Build & Publish to gh-pages (Vite)
+name: Build and Deploy (Vite → GitHub Pages, macOS)
 
 on:
   push:
@@ -6,12 +6,17 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write  # needed to push to gh-pages branch
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  build-deploy:
-    runs-on: ubuntu-22.04   # 👈 pin to a stable Ubuntu version
-
+  build:
+    runs-on: macos-latest
     steps:
       - name: 📥 Checkout
         uses: actions/checkout@v4
@@ -25,15 +30,25 @@ jobs:
       - name: 📦 Install deps
         run: npm ci
 
-      - name: 🏗️ Build (set base to /<repo>/)
+      - name: 🏗️ Build (with base path)
         env:
           BASE_PATH: "/"
         run: |
           echo "Using BASE_PATH=$BASE_PATH"
           npm run build -- --base="$BASE_PATH"
 
-      - name: 🚀 Publish to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: 📤 Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: macos-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
