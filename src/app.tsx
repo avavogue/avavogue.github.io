@@ -444,8 +444,8 @@ function Contact() {
           <SectionTitle kicker="CONTACT" title="預約初談" desc="留下聯絡資訊與預計檔期，我們將在 1–2 個工作日內回覆。「我們先了解你們的故事，然後設計婚禮。」" />
           <div className="mt-6 space-y-3 text-sm text-zinc-600 dark:text-zinc-300">
             <div className="flex items-center gap-2"><Mail className="w-4 h-4"/>hello@avavogue.com</div>
-            <div className="flex items-center gap-2"><Phone className="w-4 h-4"/>+886 912 345 678</div>
-            <div className="flex items-center gap-2"><MapPin className="w-4 h-4"/>台中市西區美村路一段 100 號</div>
+            <div className="flex items-center gap-2"><Phone className="w-4 h-4"/>+886 4 2251 8440</div>
+            <div className="flex items-center gap-2"><MapPin className="w-4 h-4"/>台中市西屯區黎明路二段 958 號</div>
             <div className="flex items-center gap-3 pt-2">
               <a className="inline-flex items-center gap-2 rounded-xl border px-3 py-1.5" href="#"><Instagram className="w-4 h-4"/>Instagram</a>
               <a className="inline-flex items-center gap-2 rounded-xl border px-3 py-1.5" href="#"><Facebook className="w-4 h-4"/>Facebook</a>
